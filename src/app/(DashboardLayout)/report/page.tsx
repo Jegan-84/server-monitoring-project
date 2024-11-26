@@ -11,17 +11,17 @@ import {
 import { useRouter } from "next/navigation"; // Import useHistory for navigation
 
 const page = () => {
-  const history = useRouter(); // Initialize history for navigation
+  const router = useRouter(); // Initialize history for navigation
 
   const handleSummaryReport = () => {
-    history.push("/report/summary-report"); // Navigate to summary report
+    router.push("/report/summary-report"); // Navigate to summary report
   };
 
   const handleProcessReport = () => {
-    history.push("/report/process-report"); // Navigate to process report
+    router.push("/report/process-report"); // Navigate to process report
   };
   const handleAlertReport = () => {
-    history.push("/report/alert-report"); // Navigate to process report
+    router.push("/report/alert-report"); // Navigate to process report
   };
 
   return (

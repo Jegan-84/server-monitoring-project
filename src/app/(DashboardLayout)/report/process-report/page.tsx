@@ -58,7 +58,9 @@ const SummaryReports = () => {
   const user = useSelector(selectCurrentUser);
   const [servers, setServers] = useState<ServerInfo[]>([]);
   const [selectedServer, setSelectedServer] = useState<ServerInfo | null>(null);
-  const [startTime, setStartTime] = useState<Date>(new Date(Date.now() - 6 * 60 * 60 * 1000)); // Default to 6 hours
+  const [startTime, setStartTime] = useState<Date>(
+    new Date(Date.now() - 6 * 60 * 60 * 1000)
+  ); // Default to 6 hours
   const [endTime, setEndTime] = useState<Date>(new Date());
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -71,7 +73,9 @@ const SummaryReports = () => {
   useEffect(() => {
     const fetchServers = async () => {
       try {
-        const { data, error } = await supabase.from("server_details").select("*");
+        const { data, error } = await supabase
+          .from("server_details")
+          .select("*");
         if (error) throw error;
         setServers(data);
       } catch (err) {
@@ -101,14 +105,19 @@ const SummaryReports = () => {
       });
 
       setMetricsData(response);
-      setHighUsageAlerts(response?.metrics.filter((metric) => {
-        return metric.cpu_usage * 100 > 80 || metric.memory_usage * 100 > 90;
-      }));
-      setProcessAlerts(response?.metrics.flatMap((metric) => {
-        return metric.process_data.filter(
-          (process) => process.cpu_usage * 100 > 20 || process.memory_usage * 100 > 20
-        );
-      }));
+      setHighUsageAlerts(
+        response?.metrics.filter((metric) => {
+          return metric.cpu_usage * 100 > 80 || metric.memory_usage * 100 > 90;
+        })
+      );
+      setProcessAlerts(
+        response?.metrics.flatMap((metric) => {
+          return metric.process_data.filter(
+            (process) =>
+              process.cpu_usage * 100 > 20 || process.memory_usage * 100 > 20
+          );
+        })
+      );
       setError(null);
     } catch (err) {
       setError("Failed to fetch range data");
@@ -140,7 +149,12 @@ const SummaryReports = () => {
 
   return (
     <Box>
-      <Box display="flex" justifyContent="flex-end" mb={2} alignItems={"center"}>
+      <Box
+        display="flex"
+        justifyContent="flex-end"
+        mb={2}
+        alignItems={"center"}
+      >
         <Typography variant="h6" padding={"10px"}>
           Performance Alert Report
         </Typography>
@@ -178,10 +192,10 @@ const SummaryReports = () => {
           Export as Image
         </Button>
       </Box>
-<Box>
-<FormControl fullWidth margin="normal">
+      <Box>
+        <FormControl fullWidth margin="normal">
           <InputLabel>Select Server</InputLabel>
-          <Select       
+          <Select
             value={selectedServer ? JSON.stringify(selectedServer) : ""}
             onChange={(e) =>
               setSelectedServer(
@@ -207,13 +221,13 @@ const SummaryReports = () => {
           onEndTimeChange={(date) => setEndTime(date || endTime)}
           onFetchData={fetchRangeData}
         />
-</Box>
+      </Box>
       {loading && <CircularProgress />}
       {error && <Alert severity="error">{error}</Alert>}
 
       {/* High Usage Alerts Chart */}
       <Typography variant="h6" padding={"10px"}>
-        High Usage Alerts (CPU > 80% or Memory > 90%)
+        High Usage Alerts (CPU `{">"}` 80% or Memory `{"<"}` 90%)
       </Typography>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={highUsageAlerts}>
@@ -229,7 +243,7 @@ const SummaryReports = () => {
 
       {/* Process Alerts Chart */}
       <Typography variant="h6" padding={"10px"}>
-        Process Alerts (CPU > 20% or Memory > 20%)
+        Process Alerts (CPU `{">"}` 20% or Memory `{">"}` 20%)
       </Typography>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={processAlerts}>
