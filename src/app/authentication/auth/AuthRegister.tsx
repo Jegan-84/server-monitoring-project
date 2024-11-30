@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import { Box, Typography, Button, Stack } from "@mui/material";
 import { supabase } from "../../../utils/supabase"; // Importing the Supabase client
 import { useRouter } from "next/navigation"; // Importing useRouter for navigation
-
-const AuthRegister = () => {
+interface loginType {
+  title?: string;
+  subtitle?: JSX.Element | JSX.Element[];
+  subtext?: JSX.Element | JSX.Element[];
+}
+const AuthRegister = ({ title, subtitle, subtext }: loginType) => {
   const [email, setEmail] = useState(""); // State for email
   const [password, setPassword] = useState(""); // State for password
   const [error, setError] = useState<string | null>(null);

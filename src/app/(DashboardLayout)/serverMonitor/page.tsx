@@ -246,8 +246,8 @@ const ServerMonitorPage = () => {
     );
   };
 
-  const latestMetrics = getLatestMetrics();
-  const averageMetrics = calculateAverages();
+  const latestMetrics: any = getLatestMetrics();
+  const averageMetrics: any = calculateAverages();
 
   if (!serverData?.ip_address) {
     return (

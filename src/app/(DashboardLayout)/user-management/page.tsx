@@ -57,7 +57,7 @@ const UserManagement = () => {
 
   const fetchUsers = async () => {
     try {
-      const usersData = await getUsers();
+      const usersData: any = await getUsers();
       setUsers(usersData);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -80,7 +80,7 @@ const UserManagement = () => {
           can_generate_reports: formData.can_generate_reports,
         });
       } else {
-        const { user, error } = await registerUser(
+        const { user, error }: any = await registerUser(
           formData.email,
           formData.password,
           formData.username,
@@ -99,7 +99,7 @@ const UserManagement = () => {
         }
 
         // Store the Supabase user ID in user_management
-        await updateUser(user.id, { supabase_user_id: user.id });
+        await updateUser(user?.id, { supabase_user_id: user?.id });
       }
       handleClose();
       fetchUsers();
@@ -181,7 +181,7 @@ const UserManagement = () => {
     }
   };
 
-  const filteredUsers = users.filter((user) =>
+  const filteredUsers = users.filter((user: any) =>
     user.username.toLowerCase().includes(filter.toLowerCase())
   );
 
@@ -222,7 +222,7 @@ const UserManagement = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredUsers.map((user) => (
+            {filteredUsers.map((user: any) => (
               <TableRow key={user.user_id}>
                 <TableCell>{user.username}</TableCell>
                 <TableCell>{user.email}</TableCell>

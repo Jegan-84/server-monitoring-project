@@ -17,6 +17,7 @@ import {
   FormControl,
 } from "@mui/material";
 import { format } from "date-fns";
+// @ts-ignore
 import html2pdf from "html2pdf.js"; // Import the html2pdf library
 import html2canvas from "html2canvas";
 import {
@@ -29,6 +30,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts"; // Import Recharts components
+import dynamic from "next/dynamic";
 
 interface ServerInfo {
   ip_address: string;
@@ -54,7 +56,7 @@ interface MetricData {
   timestamp: string; // Include timestamp for chart X axis
 }
 
-const SummaryReports = () => {
+const ProcessReports = () => {
   const user = useSelector(selectCurrentUser);
   const [servers, setServers] = useState<ServerInfo[]>([]);
   const [selectedServer, setSelectedServer] = useState<ServerInfo | null>(null);
@@ -106,14 +108,14 @@ const SummaryReports = () => {
 
       setMetricsData(response);
       setHighUsageAlerts(
-        response?.metrics.filter((metric) => {
+        response?.filter((metric: any) => {
           return metric.cpu_usage * 100 > 80 || metric.memory_usage * 100 > 90;
         })
       );
       setProcessAlerts(
-        response?.metrics.flatMap((metric) => {
+        response?.flatMap((metric: any) => {
           return metric.process_data.filter(
-            (process) =>
+            (process: any) =>
               process.cpu_usage * 100 > 20 || process.memory_usage * 100 > 20
           );
         })
@@ -260,4 +262,4 @@ const SummaryReports = () => {
   );
 };
 
-export default SummaryReports;
+export default ProcessReports;

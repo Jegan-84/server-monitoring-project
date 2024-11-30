@@ -20,7 +20,10 @@ export default function RootLayout({
       <body>
         <ThemeProvider theme={baselightTheme}>
           <CssBaseline />
-          <Providers>{children}</Providers> // Restrict all other pages
+          <Providers>
+            {children}
+            {/* Restrict all other pages */}
+          </Providers>
         </ThemeProvider>
       </body>
     </html>

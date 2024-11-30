@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import DateRangeSelector from "../../../../components/DateRangeSelector";
 import { format } from "date-fns";
+// @ts-ignore
 import html2pdf from "html2pdf.js"; // Import the html2pdf library
 import html2canvas from "html2canvas";
 import {
@@ -67,7 +68,7 @@ const SummaryReports = () => {
   const [endTime, setEndTime] = useState<Date>(new Date());
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [metricsData, setMetricsData] = useState<MetricData[]>([]);
+  const [metricsData, setMetricsData] = useState<any[]>([]);
   const [summary, setSummary] = useState<any>(null);
   const reportRef = useRef<HTMLDivElement>(null); // Reference for the section to export
 
@@ -98,7 +99,7 @@ const SummaryReports = () => {
     try {
       const formattedStartTime = format(startTime, "yyyy-MM-dd HH:mm:ss");
       const formattedEndTime = format(endTime, "yyyy-MM-dd HH:mm:ss");
-      const response: MetricData[] = await serverService.getRangeData({
+      const response: any = await serverService.getRangeData({
         ip_address: selectedServer.ip_address,
         port: selectedServer.port,
         start_time: formattedStartTime,
@@ -245,17 +246,23 @@ const SummaryReports = () => {
     return groupedData;
   };
 
-  // Export report as PDF
   const exportAsPDF = () => {
-    if (reportRef.current) {
-      html2pdf().from(reportRef.current).save("summary-report.pdf");
+    if (typeof window !== "undefined") {
+      const element = reportRef.current;
+      html2pdf().from(element).save("summary-report.pdf");
     }
   };
+  // Export report as PDF
+  // const exportAsPDF = () => {
+  //   if (reportRef.current) {
+  //     html2pdf().from(reportRef.current).save("summary-report.pdf");
+  //   }
+  // };
 
   // Export report as Image
   const exportAsImage = () => {
     if (reportRef.current) {
-      html2canvas(reportRef.current).then((canvas) => {
+      html2canvas(reportRef.current).then((canvas: any) => {
         const img = canvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.href = img;

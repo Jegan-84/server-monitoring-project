@@ -8,10 +8,10 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import { useRouter } from "next/navigation"; // Import useHistory for navigation
+import { useRouter } from "next/navigation"; // Import useRouter for navigation
 
-const page = () => {
-  const router = useRouter(); // Initialize history for navigation
+const Page = () => {
+  const router = useRouter(); // Initialize router for navigation
 
   const handleSummaryReport = () => {
     router.push("/report/summary-report"); // Navigate to summary report
@@ -20,8 +20,9 @@ const page = () => {
   const handleProcessReport = () => {
     router.push("/report/process-report"); // Navigate to process report
   };
+
   const handleAlertReport = () => {
-    router.push("/report/alert-report"); // Navigate to process report
+    router.push("/report/alert-report"); // Navigate to alert report
   };
 
   return (
@@ -86,4 +87,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

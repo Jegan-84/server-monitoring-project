@@ -29,8 +29,8 @@ interface MetricsData {
   memory_usage: number;
 }
 const AlertDashboard = () => {
-  const [alerts, setAlerts] = useState([]);
-  const [servers, setServers] = useState([]);
+  const [alerts, setAlerts] = useState<any[]>([]);
+  const [servers, setServers] = useState<any[]>([]);
   const [selectedServer, setSelectedServer] = useState("");
   const [currentMetrics, setCurrentMetrics] = useState<MetricsData | null>(
     null
@@ -70,7 +70,7 @@ const AlertDashboard = () => {
     fetchServersAndAlerts();
   }, []);
 
-  const handleServerChange = (event) => {
+  const handleServerChange = (event: any) => {
     setSelectedServer(event.target.value);
   };
   console.log("selectedServer", selectedServer);
@@ -234,35 +234,37 @@ const AlertDashboard = () => {
                     <Typography variant="subtitle1" gutterBottom>
                       Process Details:
                     </Typography>
-                    {alert.process_data.process_data.map((process, index) => (
-                      <Card
-                        key={index}
-                        sx={{
-                          mb: 1,
-                          backgroundColor: "#f5f5f5",
-                          boxShadow: 1,
-                          padding: 1,
-                        }}
-                      >
-                        <Typography variant="body2">
-                          <strong>Process Name:</strong> {process.name}
-                        </Typography>
-                        <Typography variant="body2">
-                          <strong>PID:</strong> {process.pid}
-                        </Typography>
-                        <Typography variant="body2">
-                          <strong>CPU Usage:</strong> {process.cpu_usage}%
-                        </Typography>
-                        <Typography variant="body2">
-                          <strong>Memory Usage:</strong> {process.memory_usage}{" "}
-                          MB
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          <strong>Start Time:</strong>{" "}
-                          {new Date(process.start_time).toLocaleString()}
-                        </Typography>
-                      </Card>
-                    ))}
+                    {alert.process_data.process_data.map(
+                      (process: any, index: any) => (
+                        <Card
+                          key={index}
+                          sx={{
+                            mb: 1,
+                            backgroundColor: "#f5f5f5",
+                            boxShadow: 1,
+                            padding: 1,
+                          }}
+                        >
+                          <Typography variant="body2">
+                            <strong>Process Name:</strong> {process.name}
+                          </Typography>
+                          <Typography variant="body2">
+                            <strong>PID:</strong> {process.pid}
+                          </Typography>
+                          <Typography variant="body2">
+                            <strong>CPU Usage:</strong> {process.cpu_usage}%
+                          </Typography>
+                          <Typography variant="body2">
+                            <strong>Memory Usage:</strong>{" "}
+                            {process.memory_usage} MB
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            <strong>Start Time:</strong>{" "}
+                            {new Date(process.start_time).toLocaleString()}
+                          </Typography>
+                        </Card>
+                      )
+                    )}
                   </Box>
                 )}
               </CardContent>

@@ -16,7 +16,7 @@ const serverService = {
       console.log(" params.start_time", params.start_time);
       console.log(" params.end", params.end_time);
       console.log("DateRangeParams", params);
-
+      console.log("url", url);
       // Make POST request with JSON body
       const response = await axios.post(
         url,

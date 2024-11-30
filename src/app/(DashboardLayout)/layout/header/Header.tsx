@@ -31,8 +31,7 @@ const Header = ({
 }: ItemType) => {
   // const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
   // const lgDown = useMediaQuery((theme) => theme.breakpoints.down('lg'));
-  const user = useSelector(selectCurrentUser); // Get current user
-  console.log("user", user?.additionalData);
+  const user: any = useSelector(selectCurrentUser); // Get current user
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
     boxShadow: "none",
     background: theme.palette.background.paper,

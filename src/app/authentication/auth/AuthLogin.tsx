@@ -50,7 +50,7 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => {
         console.log("user", data);
 
         if (error) throw error;
-        const { user, session } = data;
+        const { user, session }: any = data;
         const { data: userData, error: userError } = await supabase
           .from("user_management")
           .select("*")

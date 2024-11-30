@@ -11,6 +11,7 @@ interface User {
   id: string;
   email: string;
   name: string;
+  additionalData: any;
 }
 
 const initialState: AuthState = {

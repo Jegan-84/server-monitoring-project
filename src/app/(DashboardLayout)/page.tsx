@@ -57,7 +57,7 @@ interface ServerInfo {
 }
 
 const ServerMonitoring = () => {
-  const user = useSelector(selectCurrentUser);
+  const user: any = useSelector(selectCurrentUser);
   const [servers, setServers] = useState<ServerInfo[]>([]);
   const [selectedServer, setSelectedServer] = useState<ServerInfo | null>(null);
   const [serverData, setServerData] = useState<ServerData | null>(null);

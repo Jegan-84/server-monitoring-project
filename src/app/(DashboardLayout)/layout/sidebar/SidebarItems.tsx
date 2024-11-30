@@ -61,8 +61,7 @@ const Menuitems = [
 const SidebarItems = ({ toggleMobileSidebar }: any) => {
   const pathname = usePathname();
   const pathDirect = pathname;
-  const user = useSelector(selectCurrentUser); // Get current user
-  console.log("user", user?.additionalData);
+  const user: any = useSelector(selectCurrentUser); // Get current user
 
   return (
     <Box sx={{ px: 3 }}>
